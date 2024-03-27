@@ -9,7 +9,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "public")
@@ -58,4 +60,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<TFGRegister> registers;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "users_roles",
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "id",
+                            nullable = false, updatable = false, insertable = false)
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "role_id", referencedColumnName = "id",
+                            nullable = false, updatable = false, insertable = false)}
+    )
+    private Set<Role> rolesAssociated = new HashSet<>();
 }
