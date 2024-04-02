@@ -2,6 +2,7 @@ package security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import models.entity.Role;
 import models.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +26,10 @@ public class JWTAuthenticationConfig {
     public String getJWTToken(User user) {
 
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(String.join(",", user.getRolesAssociated())
+                .commaSeparatedStringToAuthorityList(String.join(",", user.getRolesAssociated()
                         .stream()
-                        .map(role -> role.getName())
-                        .collect(Collectors.toList())
+                        .map(Role::getName)
+                        .collect(Collectors.toList()))
                 );
 
         String token = Jwts
