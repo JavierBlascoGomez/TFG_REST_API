@@ -3,7 +3,7 @@ package mappers;
 import models.dto.UserRegisterDTO;
 import models.entity.User;
 
-public class UserRegisterDTOMapper {
+public class UserRegisterDtoMapper {
 
     public static User map(UserRegisterDTO userRegisterDTO) {
         User user = new User();
