@@ -1,11 +1,11 @@
-package controller;
+package com.example.tfg_rest.controller;
 
-import controller.utils.ControllerValidationErrors;
+import com.example.tfg_rest.controller.utils.ControllerValidationErrors;
+import com.example.tfg_rest.models.dao.TFGRegisterDAOImpl;
+import com.example.tfg_rest.models.dao.UserDAOImpl;
+import com.example.tfg_rest.models.dto.TFGRegisterCreateEntity;
+import com.example.tfg_rest.models.entity.TFGRegister;
 import jakarta.validation.Valid;
-import models.dao.TFGRegisterDAOImpl;
-import models.dao.UserDAOImpl;
-import models.dto.TFGRegisterCreateEntity;
-import models.entity.TFGRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

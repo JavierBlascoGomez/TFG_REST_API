@@ -1,4 +1,4 @@
-package controller.utils;
+package com.example.tfg_rest.controller.utils;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

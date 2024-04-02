@@ -1,10 +1,10 @@
-package controller;
+package com.example.tfg_rest.controller;
 
-import controller.utils.ControllerValidationErrors;
+import com.example.tfg_rest.models.dao.UserDAOImpl;
+import com.example.tfg_rest.models.dto.LoginPost;
+import com.example.tfg_rest.models.entity.User;
+import com.example.tfg_rest.controller.utils.ControllerValidationErrors;
 import jakarta.validation.Valid;
-import models.dao.UserDAOImpl;
-import models.dto.LoginPost;
-import models.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import security.JWTAuthenticationConfig;
+import com.example.tfg_rest.security.JWTAuthenticationConfig;
 
 import java.util.Map;
 

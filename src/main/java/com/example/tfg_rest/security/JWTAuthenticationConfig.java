@@ -1,9 +1,9 @@
-package security;
+package com.example.tfg_rest.security;
 
+import com.example.tfg_rest.models.entity.Role;
+import com.example.tfg_rest.models.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import models.entity.Role;
-import models.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;

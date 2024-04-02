@@ -1,8 +1,8 @@
-package models.dao;
+package com.example.tfg_rest.models.dao;
 
+import com.example.tfg_rest.models.entity.Role;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import models.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package mappers;
+package com.example.tfg_rest.mappers;
 
-import models.dto.UserRegisterDTO;
-import models.entity.User;
+import com.example.tfg_rest.models.dto.UserRegisterDTO;
+import com.example.tfg_rest.models.entity.User;
 
 public class UserRegisterDtoMapper {
 

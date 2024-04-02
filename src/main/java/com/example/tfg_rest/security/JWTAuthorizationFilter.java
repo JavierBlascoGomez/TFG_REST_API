@@ -1,4 +1,4 @@
-package security;
+package com.example.tfg_rest.security;
 
 import io.jsonwebtoken.*;
 import jakarta.servlet.FilterChain;

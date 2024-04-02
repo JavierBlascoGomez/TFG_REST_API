@@ -1,4 +1,4 @@
-package models.entity;
+package com.example.tfg_rest.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

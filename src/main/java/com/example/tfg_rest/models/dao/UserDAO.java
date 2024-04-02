@@ -1,6 +1,6 @@
-package models.dao;
+package com.example.tfg_rest.models.dao;
 
-import models.entity.User;
+import com.example.tfg_rest.models.entity.User;
 
 import java.util.List;
 

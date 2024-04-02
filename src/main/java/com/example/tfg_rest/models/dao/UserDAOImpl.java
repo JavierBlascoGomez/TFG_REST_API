@@ -1,10 +1,10 @@
-package models.dao;
+package com.example.tfg_rest.models.dao;
 
+import com.example.tfg_rest.models.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-import models.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

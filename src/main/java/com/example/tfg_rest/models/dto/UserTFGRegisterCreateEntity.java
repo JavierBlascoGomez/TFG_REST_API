@@ -1,4 +1,4 @@
-package models.dto;
+package com.example.tfg_rest.models.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
