@@ -50,12 +50,6 @@ public class TFGRegisterDAOImpl implements TFGRegisterDAO {
 
     @Override
     @Transactional
-    public void update(TFGRegister tfgRegister) {
-        entityManager.merge(tfgRegister);
-    }
-
-    @Override
-    @Transactional
     public void deleteAllByUserId(long id) {
         List<TFGRegister> tfgRegister = findByUserId(id);
         entityManager.remove(tfgRegister);

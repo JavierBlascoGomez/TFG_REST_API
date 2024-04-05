@@ -13,8 +13,6 @@ public interface TFGRegisterDAO {
 
     List<TFGRegister> findAll();
 
-    void update(TFGRegister tfgRegister);
-
     void deleteAllByUserId(long id);
 
     void delete(long id);
