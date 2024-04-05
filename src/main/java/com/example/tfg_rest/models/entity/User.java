@@ -61,6 +61,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<TFGRegister> registers;
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_roles",
             joinColumns = {
