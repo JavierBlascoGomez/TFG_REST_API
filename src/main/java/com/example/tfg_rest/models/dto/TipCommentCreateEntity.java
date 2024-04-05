@@ -1,5 +1,6 @@
 package com.example.tfg_rest.models.dto;
 
+import com.example.tfg_rest.models.entity.Comment;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.ToString;
@@ -7,9 +8,9 @@ import lombok.ToString;
 import java.util.List;
 
 @ToString
-public class UserTFGRegisterCreateEntity {
+public class TipCommentCreateEntity {
 
-    @NotEmpty(message = "The register must have at least one entrance")
+    @NotEmpty(message = "The comment must have at least one entrance")
     @Valid
-    public List<TFGRegisterCreateEntity> registers;
+    public List<Comment> comments;
 }
