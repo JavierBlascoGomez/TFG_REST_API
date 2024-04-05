@@ -10,6 +10,8 @@ public interface CommentDAO {
 
     Comment findById(long id);
 
+    List<Comment> findAll();
+
     List<Comment> findByTipId(long id);
 
     List<Comment> findByUserId(long id);

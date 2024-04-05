@@ -28,6 +28,12 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
+    public List<Comment> findAll() {
+        Query query = entityManager.createQuery("from Comment");
+        return query.getResultList();
+    }
+
+    @Override
     public List<Comment> findByTipId(long id) {
         try {
             Query query = entityManager.createQuery("from Comment where tip = :id");

@@ -2,13 +2,14 @@ package com.example.tfg_rest.controller;
 
 import com.example.tfg_rest.controller.utils.ControllerValidationErrors;
 import com.example.tfg_rest.mappers.UserRegisterDtoMapper;
+import com.example.tfg_rest.models.dao.CommentDAOImpl;
 import com.example.tfg_rest.models.dao.RoleDAOImpl;
 import com.example.tfg_rest.models.dao.TFGRegisterDAOImpl;
 import com.example.tfg_rest.models.dao.UserDAOImpl;
 import com.example.tfg_rest.models.dto.UpdatePassword;
 import com.example.tfg_rest.models.dto.UpdateUserEntity;
 import com.example.tfg_rest.models.dto.UserRegisterDTO;
-import com.example.tfg_rest.models.dto.UserTFGRegisterCreateEntity;
+import com.example.tfg_rest.models.entity.Comment;
 import com.example.tfg_rest.models.entity.Role;
 import com.example.tfg_rest.models.entity.TFGRegister;
 import com.example.tfg_rest.models.entity.User;
@@ -37,6 +38,9 @@ public class UserController {
 
     @Autowired
     private RoleDAOImpl roleService;
+
+    @Autowired
+    private CommentDAOImpl commentService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -172,7 +176,7 @@ public class UserController {
 
     @GetMapping("/{username}/registers")
     @PreAuthorize("hasAuthority('ADMIN') or #username == principal or #username == 'me'")
-    public ResponseEntity<?> createRegister(@PathVariable String username, @RequestBody @Valid UserTFGRegisterCreateEntity registerCreate, BindingResult result) {
+    public ResponseEntity<?> createRegister(@PathVariable String username, BindingResult result) {
 
         User user = username.equals("me") ? getUserIfMe() : userService.findByUsername(username);
         if (user == null) {
@@ -195,6 +199,60 @@ public class UserController {
         register.setSerum_creatinine(register.getSerum_creatinine());
 
         tfgRegisterService.save(register);
+
+        return ResponseEntity.ok(user.getRegisters());
+    }
+
+    // ----------------- Comments -----------------
+
+    @GetMapping("/{username}/comments")
+    @PreAuthorize("hasAuthority('ADMIN') or #username == principal or #username == 'me'")
+    public ResponseEntity<?> showComments(@PathVariable String username) {
+        User user = username.equals("me") ? getUserIfMe() : userService.findByUsername(username);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(user.getRegisters());
+    }
+
+    @GetMapping("/{username}/comments/{commentId}")
+    @PreAuthorize("hasAuthority('ADMIN') or #username == principal or #username == 'me'")
+    public ResponseEntity<?> showComment(@PathVariable String username, @PathVariable long commentId) {
+        User user = username.equals("me") ? getUserIfMe() : userService.findByUsername(username);
+        if (user == null) {
+            ResponseEntity.notFound().build();
+        }
+
+        assert user != null;
+        return ResponseEntity.ok(user.getRegisters().stream().filter(tfgRegister -> tfgRegister.getId() == commentId).findFirst().orElse(null));
+    }
+
+    @GetMapping("/{username}/comments")
+    @PreAuthorize("hasAuthority('ADMIN') or #username == principal or #username == 'me'")
+    public ResponseEntity<?> createComment(@PathVariable String username, BindingResult result) {
+
+        User user = username.equals("me") ? getUserIfMe() : userService.findByUsername(username);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (result.hasFieldErrors()) {
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(err -> STR."The field '\{err.getField()}' \{err.getDefaultMessage()}").toList();
+
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        Comment comment = new Comment();
+
+        comment.setUser(user);
+        comment.setDate(new Date());
+        comment.setCommentText(comment.getCommentText());
+        comment.setTip(comment.getTip());
+
+        commentService.save(comment);
 
         return ResponseEntity.ok(user.getRegisters());
     }
