@@ -20,8 +20,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -79,7 +81,7 @@ public class UserController {
         if (result.hasFieldErrors()) {
             List<String> errors = result.getFieldErrors()
                     .stream()
-                    .map(err -> STR."The field '\{err.getField()}' \{err.getDefaultMessage()}").toList();
+                    .map(err -> "The field '\\{err.getField()}' \\{err.getDefaultMessage()}").toList();
 
             return ResponseEntity.badRequest().body(errors);
         }
@@ -174,29 +176,17 @@ public class UserController {
         return ResponseEntity.ok(user.getRegisters().stream().filter(tfgRegister -> tfgRegister.getId() == registerId).findFirst().orElse(null));
     }
 
-    @GetMapping("/{username}/registers")
+    @PostMapping("/{username}/registers")
     @PreAuthorize("hasAuthority('ADMIN') or #username == principal or #username == 'me'")
-    public ResponseEntity<?> createRegister(@PathVariable String username, BindingResult result) {
+    public ResponseEntity<?> createRegister(@PathVariable String username, @RequestBody TFGRegister register) {
 
         User user = username.equals("me") ? getUserIfMe() : userService.findByUsername(username);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if (result.hasFieldErrors()) {
-            List<String> errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> STR."The field '\{err.getField()}' \{err.getDefaultMessage()}").toList();
-
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        TFGRegister register = new TFGRegister();
-
         register.setUser(user);
         register.setRegister_date(new Date());
-        register.setResult(register.getResult());
-        register.setSerum_creatinine(register.getSerum_creatinine());
 
         tfgRegisterService.save(register);
 
@@ -228,32 +218,20 @@ public class UserController {
         return ResponseEntity.ok(user.getRegisters().stream().filter(tfgRegister -> tfgRegister.getId() == commentId).findFirst().orElse(null));
     }
 
-    @GetMapping("/{username}/comments")
+    @PostMapping("/{username}/comments")
     @PreAuthorize("hasAuthority('ADMIN') or #username == principal or #username == 'me'")
-    public ResponseEntity<?> createComment(@PathVariable String username, BindingResult result) {
+    public ResponseEntity<?> createComment(@PathVariable String username, @RequestBody Comment comment) {
 
         User user = username.equals("me") ? getUserIfMe() : userService.findByUsername(username);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if (result.hasFieldErrors()) {
-            List<String> errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> STR."The field '\{err.getField()}' \{err.getDefaultMessage()}").toList();
-
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        Comment comment = new Comment();
-
         comment.setUser(user);
         comment.setDate(new Date());
-        comment.setCommentText(comment.getCommentText());
-        comment.setTip(comment.getTip());
 
         commentService.save(comment);
 
-        return ResponseEntity.ok(user.getRegisters());
+        return ResponseEntity.ok(user.getComments());
     }
 }

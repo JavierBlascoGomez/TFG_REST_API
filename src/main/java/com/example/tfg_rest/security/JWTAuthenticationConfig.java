@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 public class JWTAuthenticationConfig {
     private static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
-    @Value("$(jwt.secret)")
+    @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("$(jwt.expiration)")
-    private long expiration;
+    @Value("${jwt.expiration}")
+    private Long expiration;
 
     public String getJWTToken(User user) {
 

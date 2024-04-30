@@ -21,7 +21,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     private static final String HEADER_AUTHORIZATION_KEY = "Authorization";
     private static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
-    @Value("$(jwt.secret)")
+    @Value("${jwt.secret}")
     private String secretKey;
 
     private Claims setSigningKey(HttpServletRequest request) {

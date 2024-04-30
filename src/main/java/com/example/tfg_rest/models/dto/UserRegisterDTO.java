@@ -1,7 +1,9 @@
 package com.example.tfg_rest.models.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Date;
 
@@ -21,7 +23,7 @@ public class UserRegisterDTO {
     @Size(min = 3, message = "Email must be greater than 3 characters")
     public String email;
 
-    @NotEmpty(message = ("No birth date specified"))
+    //@NotEmpty(message = ("No birth date specified"))
     public Date birth_date;
 
     @NotEmpty(message = ("No password specified"))

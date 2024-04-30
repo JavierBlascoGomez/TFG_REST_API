@@ -49,7 +49,7 @@ public class User {
 
     @Basic
     @Column(name = "birth_date", nullable = false)
-    @NotEmpty(message = "No birth date specified")
+    //@NotEmpty(message = "No birth date specified")
     private Date birth_date;
 
     @Basic

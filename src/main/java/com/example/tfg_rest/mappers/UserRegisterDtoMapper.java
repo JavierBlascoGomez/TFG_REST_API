@@ -3,6 +3,10 @@ package com.example.tfg_rest.mappers;
 import com.example.tfg_rest.models.dto.UserRegisterDTO;
 import com.example.tfg_rest.models.entity.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UserRegisterDtoMapper {
 
     public static User map(UserRegisterDTO userRegisterDTO) {
